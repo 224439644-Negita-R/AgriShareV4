@@ -1,0 +1,15 @@
+{
+  "name": "agrishare-backend",
+  "version": "2.0.0",
+  "private": true,
+  "description": "AgriShare REST API (Node.js 22, built-in SQLite, zero runtime dependencies)",
+  "type": "module",
+  "main": "server/index.mjs",
+  "scripts": {
+    "start": "node --env-file-if-exists=.env server/index.mjs",
+    "dev": "node --env-file-if-exists=.env server/index.mjs",
+    "backup": "node --env-file-if-exists=.env server/backup.mjs",
+    "test": "node tests/api.test.mjs"
+  },
+  "engines": { "node": ">=22.13" }
+}

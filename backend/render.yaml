@@ -1,0 +1,25 @@
+# Render blueprint: Dashboard > New > Blueprint > pick this repo (root directory: backend).
+# MVP / assessment deployment: demo accounts ON so the marker can log in straight away.
+# For real users switch SEED_DEMO to false, set MAIL_PROVIDER=resend + RESEND_API_KEY and remove ALLOW_INSECURE_DEFAULTS.
+services:
+  - type: web
+    name: agrishare-api
+    runtime: docker
+    rootDir: backend
+    plan: starter            # persistent disk needs a paid plan; on the free plan data resets on each deploy
+    healthCheckPath: /healthz
+    disk:
+      name: agrishare-data
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - { key: NODE_ENV, value: production }
+      - { key: PORT, value: "3001" }
+      - { key: DATA_DIR, value: /data }
+      - { key: TRUST_PROXY, value: "1" }
+      - { key: SECRET_KEY, generateValue: true }
+      - { key: APP_URL, sync: false }              # e.g. https://agrishare-api.onrender.com
+      - { key: ALLOW_INSECURE_DEFAULTS, value: "true" }
+      - { key: SEED_DEMO, value: "true" }
+      - { key: REQUIRE_VERIFIED_EMAIL, value: "false" }
+      - { key: REQUIRE_ADMIN_2FA, value: "false" }
